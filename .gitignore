@@ -1,0 +1,4 @@
+viewer*
+test*
+config*
+!gator-check/test*

@@ -1,0 +1,36 @@
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: add-labels
+  namespace: kyv-test-apps
+spec:
+  validationFailureAction: enforce
+  failurePolicy: Fail
+  webhookTimeoutSeconds: 30
+  rules:
+  - name: add-labels
+    match:
+      all:
+      - resources:
+          kinds:
+          - Pod
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            added-by: kynervo
+          annotations:
+            added-by: kynervo-ann
+  - name: validate-labels
+    match:
+      all:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      pattern:
+        metadata:
+          labels:
+            added-by: kynervo
+          annotations:
+            added-by: kynervo-ann

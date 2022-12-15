@@ -1,0 +1,13 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+metadata:
+  name: test
+tests:
+- name: test
+  template: template.yaml
+  constraint: constraint.yaml
+  cases:
+  - name: test-one
+    object: test-one.yaml
+    assertions:
+    - violations: no

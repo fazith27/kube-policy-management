@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: kyv-test-apps
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        # image: nginxinc/nginx-unprivileged
+        image: nginx
+        ports:
+        - containerPort: 80
+        # securityContext:
+          # allowPrivilegeEscalation: true
+          # privileged: true
+        #   capabilities:
+        #     drop: ["ALL"]
+        #   runAsNonRoot: true
+        #   seccompProfile:
+        #     type: RuntimeDefault
+          # runAsUser: 0

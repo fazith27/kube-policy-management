@@ -1,0 +1,48 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: configmap-manager
+  # namespace: kyv-test-apps
+spec:
+  generateExistingOnPolicyUpdate: true
+  validationFailureAction: enforce
+  # failurePolicy: Fail
+  # webhookTimeoutSeconds: 30
+  rules:
+  - name: generate-configmap
+    match:
+      all:
+      - resources:
+          kinds:
+          - Namespace
+          names:
+          - kyv-test-apps
+    generate:
+      synchronize: true
+      apiVersion: v1
+      kind: ConfigMap
+      name: "{{request.object.metadata.name}}"
+      namespace: "{{request.object.metadata.name}}"
+      data:
+        # metadata:
+        #   labels:
+        #     operation: "{{request.operation}}"
+        #     object: "{{request.object}}"
+        #     oldObject: "{{request.oldObject}}"
+        #     # userInfo: "{{request.userInfo}}"
+        #     namespace: "{{request.namespace}}"
+        #     metadata: "{{request.object.metadata}}"
+        #     metadataname: "{{request.object.metadata.name}}"
+        #     objectname: "{{request.object.name}}"
+        #     # username: "{{request.userInfo.username}}"
+        data:
+          test: test
+          # operation: "{{request.operation}}"
+          # object: "{{request.object}}"
+          # oldObject: "{{request.oldObject}}"
+          # # userInfo: "{{request.userInfo}}"
+          # namespace: "{{request.namespace}}"
+          # metadata: "{{request.object.metadata}}"
+          # metadataname: "{{request.object.metadata.name}}"
+          # objectname: "{{request.object.name}}"
+          # # username: "{{request.userInfo.username}}"
