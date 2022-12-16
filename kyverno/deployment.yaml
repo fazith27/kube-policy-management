@@ -1,8 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  namespace: kyv-test-apps
+  name: nginx-kyv
+  namespace: dev-apps
+  labels:
+    gatekeeper: allow
+    owner: gateowner
 spec:
   replicas: 1
   revisionHistoryLimit: 0
@@ -16,16 +19,15 @@ spec:
     spec:
       containers:
       - name: nginx
-        # image: nginxinc/nginx-unprivileged
         image: nginx
         ports:
         - containerPort: 80
-        # securityContext:
-          # allowPrivilegeEscalation: true
+        securityContext:
+          allowPrivilegeEscalation: false
           # privileged: true
-        #   capabilities:
-        #     drop: ["ALL"]
-        #   runAsNonRoot: true
-        #   seccompProfile:
-        #     type: RuntimeDefault
+          # capabilities:
+          #   drop: ["ALL"]
+          # runAsNonRoot: true
+          # seccompProfile:
+          #   type: RuntimeDefault
           # runAsUser: 0

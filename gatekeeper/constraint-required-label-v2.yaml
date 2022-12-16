@@ -43,6 +43,7 @@ spec:
           msg := sprintf("Label <%v: %v> does not satisfy allowed regex: %v", [key, value, expected.allowedRegex])
         }
 ---
+# Run apply command second time 
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabelsv2
 metadata:
@@ -53,8 +54,9 @@ spec:
     kinds:
       - apiGroups: ["apps"]
         kinds: ["Deployment"]
-    # scope: Namespaced
-    namespaces: ["gatekeeper"]
+    scope: Namespaced
+    name: nginx-gk
+    namespaces: ["dev-apps"]
   parameters:
     labels:
       - key: owner

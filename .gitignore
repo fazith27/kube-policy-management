@@ -2,3 +2,5 @@ viewer*
 test*
 config*
 !gator-check/test*
+install.yaml
+values.yaml

@@ -2,7 +2,7 @@ apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
   name: add-labels
-  namespace: kyv-test-apps
+  namespace: dev-apps
 spec:
   validationFailureAction: enforce
   failurePolicy: Fail
@@ -14,6 +14,8 @@ spec:
       - resources:
           kinds:
           - Pod
+          names:
+          - nginx-kyv*
     mutate:
       patchStrategicMerge:
         metadata:
@@ -27,6 +29,8 @@ spec:
       - resources:
           kinds:
           - Pod
+          names:
+          - nginx-kyv*
     validate:
       pattern:
         metadata:

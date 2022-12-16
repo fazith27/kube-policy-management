@@ -1,4 +1,5 @@
 ---
+---
 apiVersion: mutations.gatekeeper.sh/v1
 kind: AssignMetadata
 metadata:
@@ -6,7 +7,10 @@ metadata:
 spec:
   match:
     scope: Namespaced
-    namespaces: ["gatekeeper"]
+    namespaces: ["dev-apps"]
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["*"]
   location: "metadata.annotations.owner"
   parameters:
     assign:
@@ -26,7 +30,7 @@ spec:
     kinds:
     - apiGroups: ["*"]
       kinds: ["Pod"]
-    namespaces: ["gatekeeper"]
+    namespaces: ["dev-apps"]
   location: "spec.containers[name:*].securityContext.privileged"
   parameters:
     assign:

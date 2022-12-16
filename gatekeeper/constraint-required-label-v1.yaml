@@ -28,6 +28,7 @@ spec:
           msg := sprintf("You must provide labels: %v", [missing])
         }
 ---
+# Run apply command second time 
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabelsv1
 metadata:
@@ -38,7 +39,8 @@ spec:
     kinds:
       - apiGroups: ["apps"]
         kinds: ["Deployment"]
+    name: nginx-gk
     scope: Namespaced
-    namespaces: ["gatekeeper"]
+    namespaces: ["dev-apps"]
   parameters:
     labels: ["gatekeeper"]
