@@ -36,3 +36,19 @@ spec:
     assign:
       value: false
 ---
+apiVersion: mutations.gatekeeper.sh/v1
+kind: ModifySet
+metadata:
+  name: remove-err-logging
+spec:
+  applyTo:
+  - groups: [""]
+    kinds: ["Pod"]
+    versions: ["v1"]
+  location: "spec.containers[name: *].args"
+  parameters:
+    operation: prune
+    values:
+      fromList:
+        - --alsologtostderr
+---

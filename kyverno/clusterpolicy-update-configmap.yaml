@@ -1,0 +1,24 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: policy-patch-cm
+spec:
+  rules:
+    - name: pCM1
+      match:
+        any:
+        - resources:
+            names:
+              - config-game
+            kinds:
+              - ConfigMap
+      mutate:
+        patchesJson6902: |-
+          - path: "/data/ship.properties"
+            op: add
+            value: |
+              type=starship
+              owner=utany.corp
+          - path: "/data/newKey1"
+            op: add
+            value: newValue1          
